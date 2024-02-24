@@ -119,6 +119,8 @@ class Update(object):
 
         self.north_coords = SkyCoord('16:35:50.667 +63:54:39.87',
                                      unit=(u.hourangle, u.deg))
+        self.north_coords_73 = SkyCoord('06:35:50.667 +35:54:39.87',
+                                     unit=(u.hourangle, u.deg))
         self.south_coords = SkyCoord('04:35:50.330 -64:01:37.33',
                                      unit=(u.hourangle, u.deg))
 
@@ -130,10 +132,18 @@ class Update(object):
 
         if self.sector < 14 or (self.sector > 26 and self.sector < 40):
             use_coords = self.south_coords
-        elif self.sector in [42, 43, 44]:
+        elif (self.sector in [42, 43, 44]) or self.sector==70:
             use_coords = self.ecliptic_coords_a
-        elif self.sector in [45, 46]:
+        elif (self.sector in [45, 46]) or (self.sector in [71, 72]):
             use_coords = self.ecliptic_coords_b
+        elif self.sector > 60 and self.sector < 70:
+            use_coords = self.south_coords
+        elif self.sector > 86 and self.sector < 91:
+            use_coords = self.south_coords
+        elif self.sector > 93 and self.sector < 96:
+            use_coords = self.south_coords
+        elif self.sector==73:
+            use_coords = self.north_coords_73
         else:
             use_coords = self.north_coords
 
